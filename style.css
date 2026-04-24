@@ -224,12 +224,12 @@ body {
 .delete-playlist-btn,
 .delete-track-btn,
 .add-to-playlist,
-.settings-actions button,
+.settings-actions-btn,
 .lastfm-actions button,
 .utility-settings {
     border: none;
     border-radius: 10px;
-    background: #2a2a2a;
+    background: #202020;
     color: #fff;
     cursor: pointer;
     flex-shrink: 0;
@@ -260,11 +260,15 @@ body {
 .drag-handle:hover,
 .playlist-save-btn:hover,
 .add-to-playlist:hover,
-.settings-actions button:hover,
+.settings-actions-btn:hover,
 .utility-settings:hover,
 .lastfm-toggle:hover {
     background: #3a3a3a;
     transform: translateY(-1px);
+}
+
+.settings-actions-btn{
+    width: 50%;
 }
 
 /* ---------------------MIDDLE--------------------- */

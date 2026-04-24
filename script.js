@@ -13,8 +13,6 @@ const LASTFM_TIPS = [
     "Tip: the Last.fm minimum listen time is customizable in Settings."
 ];
 
-const YT_EMBED_ORIGIN = `${location.protocol}//${location.host}`;
-
 
 let currentController = null;
 let searchHasResults = false;
@@ -25,9 +23,6 @@ let player = null;
 let playing = false;
 let songUnavailable = false;
 let progressInterval = null;
-let ytApiPromise = null;
-let ytApiResolve = null;
-let ytApiLoaded = false;
 let isDragging = false;
 let errorTimeout = null;
 let countdownInterval = null;
@@ -1364,108 +1359,52 @@ function removeFromPlaylist(videoId) {
     renderPlaylistView();
 }
 
-function getYouTubePlayerConfig() {
-    return {
-        autoplay: 0,
-        controls: 0,
-        modestbranding: 1,
-        rel: 0,
-        fs: 0,
-        iv_load_policy: 3,
-        playsinline: 1
-    };
-}
-
-function buildNoCookieEmbedUrl(videoId) {
-    const params = new URLSearchParams({
-        enablejsapi: "1",
-        origin: YT_EMBED_ORIGIN,
-        autoplay: "0",
-        controls: "0",
-        modestbranding: "1",
-        rel: "0",
-        fs: "0",
-        iv_load_policy: "3",
-        playsinline: "1"
-    });
-
-    return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?${params.toString()}`;
-}
-
-function getPlayerElement() {
-    return document.getElementById("player");
-}
-
 function loadYouTubeIframeAPI() {
-    if (window.YT && window.YT.Player) {
-        ytApiLoaded = true;
-        return Promise.resolve();
-    }
-
-    if (ytApiPromise) return ytApiPromise;
-
-    ytApiPromise = new Promise((resolve, reject) => {
-        ytApiResolve = resolve;
-
-        if (document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-            return;
-        }
-
-        const tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-        tag.async = true;
-        tag.onerror = reject;
-
-        const firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    });
-
-    return ytApiPromise;
+    if (document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) return;
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function createYouTubePlayer(initialVideoId = "") {
-    const playerEl = getPlayerElement();
-    if (!playerEl || !window.YT || !YT.Player) return null;
+loadYouTubeIframeAPI();
 
-    if (initialVideoId) {
-        playerEl.src = buildNoCookieEmbedUrl(initialVideoId);
-    } else if (!playerEl.getAttribute("src") || playerEl.getAttribute("src") === "about:blank") {
-        playerEl.src = "about:blank";
-    }
+window.onYouTubeIframeAPIReady = function () {
+    const db = getDB();
+    const names = Object.keys(db.playlists);
+    const firstPlaylist = names[0];
+    const firstSong = firstPlaylist ? (db.playlists[firstPlaylist] || [])[0] : null;
+    selectedVideoId = firstSong ? firstSong.videoId : "";
 
-    player = new YT.Player(playerEl, {
+    player = new YT.Player("player", {
+        videoId: selectedVideoId,
+        host: "http://www.youtube-nocookie.com",
+        playerVars: {
+            autoplay: 0,
+            controls: 0,
+            modestbranding: 1,
+            showinfo: 0,
+            rel: 0,
+            fs: 0,
+            iv_load_policy: 3,
+            playsinline: 1
+        },
         events: {
             onReady: (event) => {
                 event.target.setVolume(currentVolume);
+                if (selectedVideoId) {
+                    event.target.cueVideoById(selectedVideoId);
+                }
                 if (pendingVideo) {
                     const { videoId, albumArtUrl, songObject } = pendingVideo;
                     pendingVideo = null;
                     loadNewVideo(videoId, albumArtUrl, songObject);
-                    return;
-                }
-                if (selectedVideoId) {
-                    event.target.cueVideoById(selectedVideoId);
                 }
             },
             onStateChange: handlePlayerStateChange,
             onError: handleVideoError
         }
     });
-
-    return player;
-}
-
-window.onYouTubeIframeAPIReady = function () {
-    ytApiLoaded = true;
-    if (ytApiResolve) {
-        ytApiResolve();
-        ytApiResolve = null;
-    }
-
-    const queuedVideoId = pendingVideo?.videoId || selectedVideoId || "";
-    if (!player && queuedVideoId) {
-        createYouTubePlayer(queuedVideoId);
-    }
 };
 
 function setPlayPauseIcon(isPlaying) {
@@ -1735,16 +1674,7 @@ function loadNewVideo(videoId, albumArtUrl, songObject = null) {
 
     if (!player || typeof player.loadVideoById !== "function") {
         pendingVideo = { videoId, albumArtUrl, songObject };
-        loadYouTubeIframeAPI().then(() => {
-            if (!player && window.YT && YT.Player) {
-                createYouTubePlayer(videoId);
-                return;
-            }
-            if (player && typeof player.loadVideoById === "function") {
-                player.loadVideoById(videoId);
-                player.setVolume(currentVolume);
-            }
-        }).catch(() => {});
+        loadYouTubeIframeAPI();
         return;
     }
 
@@ -2550,7 +2480,17 @@ document.addEventListener("DOMContentLoaded", function () {
         void ensureLastFmSession();
     }
 
-    renderLyricsPanel();
-    renderLastFmBar();
-    renderPlaylistView();
+    const names = Object.keys(db.playlists);
+    if (names.length && db.playlists[names[0]].length) {
+        currentPlaylist = names[0];
+        const firstSong = db.playlists[names[0]][0];
+        actualSelectedVideoId = firstSong.videoId;
+        selectedVideoId = firstSong.videoId;
+        setNowPlayingUI(firstSong);
+        handleLastFmTrackStart(firstSong);
+        renderPlaylistView();
+    } else {
+        renderLyricsPanel();
+        renderLastFmBar();
+    }
 });
