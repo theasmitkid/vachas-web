@@ -319,7 +319,6 @@ body {
     background: var(--bg-17);
 }
 
-#playlistList,
 .playlist-list,
 .middle,
 #results {
@@ -1006,7 +1005,7 @@ body {
         align-items: center;
         gap: 8px;
         padding: 10px;
-        margin: 10px 10px 10px 0;
+        margin: 10px 10px 0 10px;
         border-radius: 14px 14px 0 0;
         background: var(--bg-6);
         border: 1px solid var(--border-4);
