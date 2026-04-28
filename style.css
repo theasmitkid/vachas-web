@@ -237,7 +237,7 @@ body {
     gap: 8px;
     width: 100%;
 }
-
+.search-btn,
 .control-buttons button,
 .drag-handle,
 .playlist-save-btn,
@@ -253,6 +253,14 @@ body {
     border: none;
     cursor: pointer;
     color: var(--text-0);
+    background: var(--bg-6);
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 0 var(--inset-0);
     transition:
         background-color var(--transition-fast),
         border-color var(--transition-fast),
@@ -263,25 +271,11 @@ body {
         opacity var(--transition-fast);
 }
 
-.control-buttons button,
-.drag-handle,
-.playlist-save-btn,
-.delete-playlist-btn,
-.delete-track-btn,
-.add-to-playlist,
-.settings-actions-btn,
-.lastfm-actions button,
-.utility-settings {
-    background: var(--bg-6);
-    border-radius: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    flex-shrink: 0;
-    box-shadow: inset 0 1px 0 var(--inset-0);
+.search-btn {
+    background: var(--bg-2);
+    aspect-ratio: 1 / 1;
+    height: 64px;
 }
-
 .control-buttons button {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -384,13 +378,17 @@ body {
     text-overflow: ellipsis;
     font-weight: 600;
 }
-
+.search-actions,
 .playlist-actions,
 .lastfm-actions,
 .settings-actions {
     display: flex;
     flex-shrink: 0;
     gap: 0;
+}
+
+.search-actions {
+    margin: 10px;
 }
 
 .drag-handle,
@@ -416,7 +414,7 @@ body {
 
 .settings-actions-btn {
     width: 50%;
-    background: var(--bg-6);
+    background: var(--bg-2);
 }
 
 .delete-playlist-btn:hover,
@@ -544,6 +542,7 @@ body {
     z-index: 10;
     display: flex;
     padding: 0;
+    align-items: center;
     background: var(--bg-6);
 }
 
@@ -560,28 +559,8 @@ body {
     font-size: 16px;
 }
 
-.search-header button {
-    padding: 10px 14px;
-    width: 64px;
-    border: none;
-    background: var(--bg-6);
-    color: var(--text-3);
-    cursor: pointer;
-    font-size: 16px;
-    aspect-ratio: 1 / 1;
-}
-
 .search-header button:hover {
     background: var(--bg-1);
-}
-
-.search-btn.search {
-    border-radius: 0;
-}
-
-.search-btn.clear {
-    border-radius: 0 8px 8px 0;
-    border-left: 1px solid var(--border-1);
 }
 
 #results {
@@ -1099,7 +1078,7 @@ body {
 
 
     #playlistView {
-        order
+        order: 5;
         display: flex;
         flex-direction: column;
         gap: 8px;
