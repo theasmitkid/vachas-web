@@ -126,10 +126,10 @@ body {
 
 #playbackControl {
     margin: 10px 10px 0;
-    padding: 12px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     overflow: hidden;
 }
@@ -331,7 +331,7 @@ body {
     padding: 8px;
     background: var(--bg-7);
     border: 1px solid var(--border-4);
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     box-shadow: inset 0 1px 0 var(--inset-1);
 }
@@ -463,7 +463,7 @@ body {
 }
 
 .playlist-drop-placeholder {
-    height: 12px;
+    height: 10px;
     margin: 0 6px;
     border-radius: 999px;
     background: var(--placeholder);
@@ -520,7 +520,7 @@ body {
 }
 
 .search-box {
-    margin: 10px 10px 12px;
+    margin: 10px;
     height: 64px;
     overflow: hidden;
     display: flex;
@@ -642,7 +642,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 12px 14px;
+    padding: 10px;
     border-bottom: 1px solid var(--border-3);
 }
 
@@ -658,7 +658,7 @@ body {
 .lyrics-content {
     flex: 1;
     overflow-y: auto;
-    padding: 14px;
+    padding: 10px;
     white-space: pre-wrap;
     scrollbar-width: thin;
     scrollbar-color: var(--bg-13) transparent;
@@ -709,7 +709,7 @@ body {
 }
 
 .lastfm-box {
-    margin: 0 10px 12px;
+    margin: 0 10px 10px;
     display: flex;
     flex-direction: row;
 }
@@ -720,15 +720,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding: 12px 12px 12px 14px;
+    gap: 10px;
+    padding: 10px;
     overflow: hidden;
 }
 
 .lastfm-bar input {
     flex: 1;
     min-width: 0;
-    padding: 0 14px;
+    padding: 0 10px;
     border: none;
     outline: none;
     background: var(--overlay-0);
@@ -831,7 +831,7 @@ body {
 }
 
 .settings-grid {
-    gap: 12px;
+    gap: 10px;
 }
 
 .settings-field {
@@ -840,14 +840,14 @@ body {
 }
 
 .settings-field label {
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text-4);
     font-weight: 700;
 }
 
 .settings-field input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 10px;
     border: 1px solid var(--border-5);
     border-radius: 10px;
     background: var(--bg-3);
@@ -863,9 +863,9 @@ body {
 .settings-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 12px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
     border: 1px solid var(--border-2);
     background: var(--bg-4);
 }
@@ -881,7 +881,7 @@ body {
 }
 
 .empty-state {
-    padding: 14px;
+    padding: 10px;
     font-size: 14px;
 }
 
@@ -964,15 +964,15 @@ body {
     }
 
     .search-box {
-        order: 4;
-        margin: 0 10px 0 10px;
-        border-radius: 0;
+        order: 5;
+        margin: 0 10px 10px 10px;
+        border-radius: 0 0 10px 10px;
         overflow: hidden;
         border-bottom: 0;
     }
 
     .middle {
-        order: 5;
+        order: 4;
     }
     .mobile-tabs {
         order: 2;
@@ -981,7 +981,7 @@ body {
         gap: 8px;
         padding: 10px;
         margin: 10px 10px 0 10px;
-        border-radius: 14px 14px 0 0;
+        border-radius: 10px 10px 0 0;
         background: var(--bg-6);
         border: 1px solid var(--border-4);
         border-bottom: none;
@@ -994,9 +994,9 @@ body {
         align-items: center;
         justify-content: center;
         min-height: 42px;
-        padding: 0 12px;
+        padding: 0 10px;
         border: 1px solid var(--border-4);
-        border-radius: 12px;
+        border-radius: 10px;
         background: var(--bg-7);
         color: var(--text-3);
         font-weight: 700;
@@ -1086,9 +1086,9 @@ body {
         max-height: 70dvh;
         overflow-y: auto;
         overflow-x: hidden;
-        margin: 0 10px 10px;
         padding: 10px;
-        border-radius: 0 0 14px 14px;
+        border-radius: 0;
+        margin: 0 10px;
         box-shadow: none;
         scrollbar-width: thin;
         -webkit-overflow-scrolling: touch;
@@ -1104,7 +1104,7 @@ body {
         overflow-x: hidden;
         margin-top: 0;
         padding: 0;
-        border-radius: 0 0 14px 14px;
+        border-radius: 0 0 10px 10px;
         box-shadow: none;
         scrollbar-width: thin;
         -webkit-overflow-scrolling: touch;
