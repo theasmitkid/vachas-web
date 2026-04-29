@@ -4,18 +4,16 @@
     --button-normal: #141414;
     --button-darker: #0b0b0b;
     --button-hover: #3a3a3a;
-    --button-delete: #300909;
-    --button-toggle: #24382a;
-    --button-toggle-lighter: #345240;
     --box-bg: #171717;
     --box-item-bg: #222222;
     --box-item-hover: #2a2a2a;
     --box-item-selected: #303030;
-
     --text-normal: #ffffff;
     --text-darker: #aaaaaa;
-    
     --border: #222222;
+    --button-delete: #861313;
+    --button-toggle: #325d5d;
+    --button-toggle-lighter: #4d8f8f;
 
     --transparent: rgba(0, 0, 0, 0);
     --overlay-light: rgba(0, 0, 0, 0.40);
@@ -23,9 +21,6 @@
 
     --spinner-track: #444444;
     --spinner-head: #ffffff;
-
-    --placeholder: rgba(255, 255, 255, 0.12);
-    --placeholder-inner: rgba(255, 255, 255, 0.35);
 
     --transition-fast: 0.14s ease;
     --transition-medium: 0.18s ease;
@@ -411,15 +406,13 @@ body {
     height: 5px;
     margin: 0 6px;
     border-radius: 10px;
-    background: var(--placeholder);
+    background: var(--button-lighter);
 }
 
 .playlist-drop-placeholder::after {
     content: "";
     display: block;
     height: 100%;
-    border-radius: 10px;
-    background: var(--placeholder-inner);
 }
 
 .track-cover-btn {
