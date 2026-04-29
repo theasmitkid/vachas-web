@@ -3,30 +3,26 @@
     --button-lighter: #262626;
     --button-normal: #141414;
     --button-darker: #0b0b0b;
+    --button-hover: #3a3a3a;
+    --button-delete: #300909;
+    --button-toggle: #24382a;
+    --button-toggle-lighter: #345240;
     --box-bg: #171717;
     --box-item-bg: #222222;
-    --bg-12: #300909;
-    --bg-13: #3a3a3a;
-    
+    --box-item-hover: #2a2a2a;
+    --box-item-selected: #303030;
+
     --text-normal: #ffffff;
     --text-darker: #aaaaaa;
     
     --border: #222222;
 
-    --overlay-0: rgba(0, 0, 0, 0);
-    --overlay-1: rgba(0, 0, 0, 0.15);
-    --overlay-2: rgba(0, 0, 0, 0.35);
-    --overlay-3: rgba(0, 0, 0, 0.70);
-    --overlay-4: rgba(0, 0, 0, 0.80);
+    --transparent: rgba(0, 0, 0, 0);
+    --overlay-light: rgba(0, 0, 0, 0.40);
+    --overlay-dark: rgba(0, 0, 0, 0.80);
 
     --spinner-track: #444444;
     --spinner-head: #ffffff;
-
-    --track-selected: #303030;
-    --track-hover: #2a2a2a;
-    --toggle-on: #24382a;
-    --toggle-on-lighter: #345240;
-    --toggle-on-text: #dfffe6;
 
     --placeholder: rgba(255, 255, 255, 0.12);
     --placeholder-inner: rgba(255, 255, 255, 0.35);
@@ -117,7 +113,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--overlay-2);
+    background: var(--overlay-light);
     border-radius: 10px;
     opacity: 0;
     pointer-events: none;
@@ -236,7 +232,7 @@ body {
     max-height: 64px;
     aspect-ratio:1;
     font-family: monospace;
-    font-size: 18pt;
+    font-size: 16pt;
     background: var(--button-lighter);
 }
 
@@ -247,16 +243,16 @@ body {
 .settings-actions-btn:hover,
 .utility-settings:hover,
 .lastfm-toggle:hover {
-    background: var(--bg-13);
+    background: var(--button-hover);
     transform: translateY(-1px);
 }
 
 .control-buttons button.active-toggle {
-    background: var(--toggle-on);
+    background: var(--button-toggle);
 }
 
 .control-buttons button.active-toggle:hover {
-    background: var(--toggle-on-lighter);
+    background: var(--button-toggle-lighter);
 }
 
 .playlist-list,
@@ -290,13 +286,13 @@ body {
 
 .playlist-row:hover,
 .video:hover {
-    background: var(--track-hover);
+    background: var(--box-item-hover);
     border-color: var(--border);
 }
 
 .playlist-row.active,
 .video.selected {
-    background: var(--track-selected);
+    background: var(--box-item-selected);
     border-color: var(--border);
 }
 
@@ -311,7 +307,7 @@ body {
     align-items: center;
     gap: 10px;
     padding: 8px 10px;
-    background: var(--overlay-0);
+    background: var(--transparent);
     border: none;
     border-radius: 10px;
     text-align: left;
@@ -319,7 +315,7 @@ body {
 
 .playlist-item:hover,
 .playlist-item.active {
-    background: var(--overlay-0);
+    background: var(--transparent);
 }
 
 .playlist-item-name {
@@ -371,16 +367,16 @@ body {
 
 .delete-playlist-btn:hover,
 .delete-track-btn:hover {
-    background: var(--bg-12);
+    background: var(--button-delete);
 }
 
 .lastfm-toggle.active {
-    background: var(--toggle-on);
-    color: var(--toggle-on-text);
+    background: var(--button-toggle);
+    color: var(--te);
 }
 
 .lastfm-toggle.active:hover {
-    background: var(--toggle-on-lighter);
+    background: var(--button-toggle-lighter);
 }
 
 .middle .video,
@@ -432,7 +428,7 @@ body {
     height: 54px;
     padding: 0;
     border: none;
-    background: var(--overlay-0);
+    background: var(--transparent);
     overflow: hidden;
     flex-shrink: 0;
     cursor: pointer;
@@ -456,7 +452,7 @@ body {
     font-size: 18px;
     opacity: 0;
     pointer-events: none;
-    background: var(--overlay-0);
+    background: var(--transparent);
 }
 
 .track-cover-btn:hover img {
@@ -482,6 +478,18 @@ body {
 
 .search-box.open {
     height: 400px;
+}
+
+.search-box.loading .search-header .action-right,
+.search-box.open .search-header .action-right {
+    border-bottom-right-radius: 0;
+    transition: var(--transition-panel);
+}
+    
+.search-box.loading .search-header,
+.search-box.open .search-header {
+    border: none;
+    border-bottom: 1px solid var(--border);
 }
 
 .search-header {
@@ -573,7 +581,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--overlay-1);
+    background: var(--overlay-light);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-medium);
@@ -649,7 +657,7 @@ body {
     bottom: 4px;
     padding: 2px 5px;
     border-radius: 10px;
-    background: var(--overlay-4);
+    background: var(--overlay-dark);
     font-size: 11px;
 }
 
@@ -710,7 +718,7 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    background: var(--overlay-3);
+    background: var(--overlay-dark);
 }
 
 .modal-content {
@@ -755,7 +763,7 @@ body {
 #modalPlaylists button:hover,
 .modal-content > button:hover,
 .modal-content #createPlaylistBtn:hover {
-    background: var(--bg-13);
+    background: var(--button-hover);
 }
 
 .modal-content.settings-content {
@@ -817,11 +825,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--overlay-0);
+    background: var(--transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-13);
+    background: var(--button-hover);
     border-radius: 10px;
 }
 
@@ -880,6 +888,10 @@ body {
         display: contents;
     }
 
+    .control-buttons button {
+        font-size: 24pt;
+    }
+
     .search-box,
     #playlistView,
     .lyrics-box,
@@ -936,7 +948,7 @@ body {
     }
 
     .mobile-tabs label:hover {
-        background: var(--bg-13);
+        background: var(--button-hover);
         color: var(--text-normal);
     }
 
@@ -947,7 +959,7 @@ body {
 
     #mobileTabPlaylist:checked ~ .app .mobile-tabs label[for="mobileTabPlaylist"],
     #mobileTabLyrics:checked ~ .app .mobile-tabs label[for="mobileTabLyrics"] {
-        background: var(--button-lighter);
+        background: var(--box-item-selected);
         border-color: var(--border);
         color: var(--text-normal);
     }
@@ -970,7 +982,7 @@ body {
     #mobileTabLyrics:checked ~ .app .lyrics-box {
         display: flex;
     }
-
+    
     .playlist-list {
         order: 3;
         display: flex;
@@ -1001,6 +1013,9 @@ body {
         min-width: 0;
     }
 
+    .search-header .action-right {
+        border-top-right-radius: 0;
+    }
 
     #playlistView {
         order: 5;
