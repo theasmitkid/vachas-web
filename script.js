@@ -349,14 +349,8 @@ function normalizeLastFmRecentTrack(item) {
     const artist = typeof item?.artist === "string" ? item.artist : item?.artist?.["#text"] || "";
     const name = String(item?.name || "").trim();
     return {
-        videoId: `lastfm:${normalizeText(artist)}:${normalizeText(name)}`,
-        songName: name || "Unknown",
-        authorName: artist || "Unknown",
         title: name || "Unknown",
-        author: artist || "Unknown",
-        albumArt: "",
-        duration: Math.max(1, Number(item?.duration) || 0),
-        source: "lastfm"
+        author: artist || "Unknown"
     };
 }
 
